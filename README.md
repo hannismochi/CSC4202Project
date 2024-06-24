@@ -105,7 +105,9 @@ Average Case - The average case is also the same as the worst case, O(total_time
 7) Analysis of Time Complexity :
    
 Best case : O(1)
+
 Worse case : O(total_time_steps)
+
 Average case : O(total_time_steps)
 
    
