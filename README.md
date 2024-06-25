@@ -1,4 +1,4 @@
-# CSC4202Project
+# CSC4202PROJECT (TRAFFIC LIGHT SYSTEM)
 
 1) Problem statement : 
 Innovatia, a bustling city known for its innovation and culture, faces a critical issue of severe traffic congestion, particularly during peak hours. This congestion leads to frustratingly long travel times, hindering economic productivity and contributing to environmental degradation. The city council seeks to address this challenge by designing an intelligent traffic management system to optimize traffic flow and reduce congestion, aiming to minimize total travel time for all vehicles by dynamically adjusting traffic light timings at intersections.
@@ -23,51 +23,51 @@ The goal is to minimise the cumulative waiting time, line lengths, and number of
    
 3) Pseudocode : 
 
-// Define constants and data structures
-num_phases = 12  // Total number of phases (4 directions x 3 movements)
-total_time_steps = 60  // Total simulation time in steps
-green_durations = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]  // Example durations for each phase
+         // Define constants and data structures
+         num_phases = 12  // Total number of phases (4 directions x 3 movements)
+         total_time_steps = 60  // Total simulation time in steps
+         green_durations = [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]  // Example durations for each phase
+         
+         directions = ['A (South)', 'B (East)', 'C (North)', 'D (West)']
+         movements = ['Straight', 'Left', 'Right']
+         
+         // Initialize phase information
+         phases = []
+         for i = 0 to num_phases - 1:
+             direction = directions[i // 3]
+             movement = movements[i % 3]
+             duration = green_durations[i]
+             phases[i] = (direction, movement, duration)
 
-directions = ['A (South)', 'B (East)', 'C (North)', 'D (West)']
-movements = ['Straight', 'Left', 'Right']
+         // Simulation loop
+         current_time_step = 0
+         current_phase_index = 0
+         current_phase_time_left = phases[current_phase_index].duration
+         
+         phase_changes = []
+         
+         while current_time_step < total_time_steps:
+             // Record current phase
+             phase_changes.append((current_time_step, current_phase_index))
 
-// Initialize phase information
-phases = []
-for i = 0 to num_phases - 1:
-    direction = directions[i // 3]
-    movement = movements[i % 3]
-    duration = green_durations[i]
-    phases[i] = (direction, movement, duration)
+       // Print or log current phase details
+       print("At time step", current_time_step, "phase is", current_phase_index, "(", phases[current_phase_index].direction, "-", phases[current_phase_index].movement, ")")
+   
+       // Update time step and remaining time in current phase
+       current_time_step = current_time_step + 1
+       current_phase_time_left = current_phase_time_left - 1
+   
+       // Check if current phase duration is over
+       if current_phase_time_left == 0:
+           // Move to the next phase
+           current_phase_index = (current_phase_index + 1) % num_phases
+           current_phase_time_left = phases[current_phase_index].duration
 
-// Simulation loop
-current_time_step = 0
-current_phase_index = 0
-current_phase_time_left = phases[current_phase_index].duration
-
-phase_changes = []
-
-while current_time_step < total_time_steps:
-    // Record current phase
-    phase_changes.append((current_time_step, current_phase_index))
-
-    // Print or log current phase details
-    print("At time step", current_time_step, "phase is", current_phase_index, "(", phases[current_phase_index].direction, "-", phases[current_phase_index].movement, ")")
-
-    // Update time step and remaining time in current phase
-    current_time_step = current_time_step + 1
-    current_phase_time_left = current_phase_time_left - 1
-
-    // Check if current phase duration is over
-    if current_phase_time_left == 0:
-        // Move to the next phase
-        current_phase_index = (current_phase_index + 1) % num_phases
-        current_phase_time_left = phases[current_phase_index].duration
-
-// Function to plot phase changes
-function plot_phase_changes(phase_changes, num_phases, total_time_steps):
-    // Extract time and phase indices for plotting
-    times = [change[0] for change in phase_changes]
-    phases = [change[1] for change in phase_changes]
+      // Function to plot phase changes
+      function plot_phase_changes(phase_changes, num_phases, total_time_steps):
+          // Extract time and phase indices for plotting
+          times = [change[0] for change in phase_changes]
+          phases = [change[1] for change in phase_changes]
 
     // Plot using a line graph
     plot(times, phases, marker='o')
